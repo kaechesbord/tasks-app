@@ -1,0 +1,19 @@
+.header{
+    background-color: #F1F4F8;
+    width: 100%;
+    height: 60px;
+    border-bottom:0.5px #CBD2E1 solid ;
+    display:flex;
+    align-items: center;
+    padding-left: 30px;
+}
+.header h2{
+    color:#4F6C92;
+    font-weight: 660;
+    margin-right:40px;
+}
+.header h4{
+    color: #A4B8D3;
+    font-weight: 400;
+    font-size: 17px;
+}

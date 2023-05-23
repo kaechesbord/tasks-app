@@ -1,0 +1,48 @@
+.tab{
+    width: 100%;
+    height: 80px;
+    border-bottom:0.5px #CBD2E1 solid ;
+    padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text{
+    justify-content: flex-start;
+}
+.date{
+    color:#4F6C92;
+}
+.location{
+    color: #A4B8D3;
+    font-weight: 400;
+}
+.btn{
+    justify-content: flex-end;
+    padding-right: 50px;
+}
+.btn-started{
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-weight: 700;
+    font-size: 0.4cm;
+    color: #CBD2E1;
+    height: 50px;
+    width: 120px;
+    border: 2px solid #CBD2E1;
+    border-radius: 5cm;
+}
+.btn-notStarted{
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-weight: 600;
+    font-size: 0.4cm;
+    color: #E20062;
+    cursor: pointer;
+    height: 50px;
+    width: 120px;
+    border: 2px solid #FE93B3;
+    border-radius: 5cm;
+}
