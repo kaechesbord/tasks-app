@@ -1,14 +1,13 @@
-import React from 'react'
-import './Header.css'
-import { mock_data } from '../App'
+import React from 'react';
+import './Header.css';
 
-const Header = (props) => { 
+const Header = ({ date, amnt }) => {
   return (
     <div className='header'>
-      <h2>{props.date}</h2>
-      <h4>{props.amnt}</h4>
+      <h2>{date}</h2>
+      <h4>{amnt}</h4>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

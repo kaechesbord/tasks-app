@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './Footer.css'
-import { mock_data } from '../App'
 
 const Footer = () => {
     const [active, setActive] = useState(true)
