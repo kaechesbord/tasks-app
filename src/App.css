@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 .app-container {
   display: flex;
@@ -11,4 +12,10 @@
 .content-container {
   flex: 1;
   overflow-y: auto;
+}
+.footer-container{
+  margin-top: 70px;
+}
+::-webkit-scrollbar{
+  display: none;
 }

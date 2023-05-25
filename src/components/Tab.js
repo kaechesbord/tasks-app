@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Tab.css';
 import { DateTime } from 'luxon';
 import { v4 as uuidv4 } from 'uuid';
-
-const shiftTime = (dateObj, shiftDays = 0) =>
-  DateTime.fromObject(dateObj).plus({ days: shiftDays }).valueOf();
+import { mockData } from '../App';
 
 const createMockShift = (values) =>
   Object.assign(
@@ -15,34 +13,60 @@ const createMockShift = (values) =>
     values
   );
 
-const mockData = [
+const currentDate = DateTime.local().startOf('day');
+
+const mockDataTime = [
   createMockShift({
     area: 'Helsinki',
-    startTime: shiftTime({ hour: 12 }),
-    endTime: shiftTime({ hour: 14 }),
+    startTime: currentDate.set({ hour: 19 }).valueOf(),
+    endTime: currentDate.set({ hour: 20 }).valueOf(),
   }),
   createMockShift({
     area: 'Helsinki',
-    startTime: shiftTime({ hour: 10 }),
-    endTime: shiftTime({ hour: 12 }),
+    startTime: currentDate.set({ hour: 10 }).valueOf(),
+    endTime: currentDate.set({ hour: 12 }).valueOf(),
   }),
   createMockShift({
     area: 'Helsinki',
-    startTime: shiftTime({ hour: 16 }),
-    endTime: shiftTime({ hour: 17, minutes: 30 }),
+    startTime: currentDate.set({ hour: 16 }).valueOf(),
+    endTime: currentDate.set({ hour: 17, minutes: 30 }).valueOf(),
   }),
   createMockShift({
     area: 'Turku',
-    startTime: shiftTime({ hour: 16 }),
-    endTime: shiftTime({ hour: 17, minutes: 30 }),
+    startTime: currentDate.set({ hour: 16 }).valueOf(),
+    endTime: currentDate.set({ hour: 21, minutes: 30 }).valueOf(),
+  }),
+  createMockShift({
+    area: 'Turku',
+    startTime: currentDate.set({ hour: 16 }).valueOf(),
+    endTime: currentDate.set({ hour: 17, minutes: 30 }).valueOf(),
   }),
 ];
 
 const Tab = ({ startTime, endTime, location, started }) => {
-  const [isStarted, setStarted] = useState(started);
+  const [isStarted, setStarted] = useState(false);
+  const [today, setToday] = useState()
 
   const formattedStartTime = DateTime.fromMillis(startTime).toFormat('HH:mm');
   const formattedEndTime = DateTime.fromMillis(endTime).toFormat('HH:mm');
+
+  useEffect(() => {
+    const currentTime = DateTime.local().toMillis();
+    const startTimestamp = startTime;
+    const endTimestamp = endTime;
+    mockData.forEach((data) => {
+      if(currentDate.hasSame(data.when , 'day')) {
+        setToday(true)
+      }
+    })
+    if(today) {
+      if (currentTime >= startTimestamp && currentTime <= endTimestamp) {
+        setStarted(true);
+      } else {
+        setStarted(false);
+      }
+    }
+  }, [startTime, endTime]);
 
   return (
     <div>
@@ -64,7 +88,7 @@ const Tab = ({ startTime, endTime, location, started }) => {
 const TabContainer = () => {
   return (
     <div>
-      {mockData.map((shift) => (
+      {mockDataTime.map((shift) => (
         <Tab
           key={shift.id}
           startTime={shift.startTime}
@@ -78,3 +102,4 @@ const TabContainer = () => {
 };
 
 export default TabContainer;
+
