@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { NavLink} from 'react-router-dom'
 import './Footer.css'
 
 const Footer = () => {
-    const [active, setActive] = useState(true)
+  const [activeLink, setActiveLink] = useState('');
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
+
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    setActiveLink(currentPath === '/' ? 'home' : 'about');
+  }, []);
+
   return (
     <div className='footer'>
-     <Link to={"/"}> <h2 className={active ? 'active' : 'inactive'}>My shifts</h2></Link>
-      <Link to={"/available-shifts"}><h2 className={active ? 'active' : 'inactive'}>Available shifts</h2></Link>
+     <NavLink to={"/"} onClick={() => handleLinkClick('home')} className={activeLink === 'home' ? "activeLink" : "inactive"}> <h2 >My shifts</h2></NavLink>
+      <NavLink to={"/available-shifts"}  onClick={() => handleLinkClick('about')} className={activeLink === 'about' ? "activeLink" : "inactive"}><h2 >Available shifts</h2></NavLink>
     </div>
   )
 }
