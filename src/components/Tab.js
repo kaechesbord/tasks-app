@@ -15,20 +15,20 @@ const createMockShift = (values) =>
 
 const currentDate = DateTime.local().startOf('day');
 
-const mockDataTime = [
+export const mockDataTime = [
   createMockShift({
     area: 'Helsinki',
     startTime: currentDate.set({ hour: 19 }).valueOf(),
     endTime: currentDate.set({ hour: 20 }).valueOf(),
   }),
   createMockShift({
-    area: 'Helsinki',
+    area: 'Turbe',
     startTime: currentDate.set({ hour: 10 }).valueOf(),
     endTime: currentDate.set({ hour: 12 }).valueOf(),
   }),
   createMockShift({
-    area: 'Helsinki',
-    startTime: currentDate.set({ hour: 16 }).valueOf(),
+    area: 'Stockholm',
+    startTime: currentDate.set({ hour: 13 }).valueOf(),
     endTime: currentDate.set({ hour: 17, minutes: 30 }).valueOf(),
   }),
   createMockShift({
@@ -37,7 +37,7 @@ const mockDataTime = [
     endTime: currentDate.set({ hour: 21, minutes: 30 }).valueOf(),
   }),
   createMockShift({
-    area: 'Turku',
+    area: 'Antananarivo',
     startTime: currentDate.set({ hour: 16 }).valueOf(),
     endTime: currentDate.set({ hour: 17, minutes: 30 }).valueOf(),
   }),
@@ -55,7 +55,7 @@ const Tab = ({ startTime, endTime, location, started }) => {
     const startTimestamp = startTime;
     const endTimestamp = endTime;
     mockData.forEach((data) => {
-      if(currentDate.hasSame(data.when , 'day')) {
+      if(currentDate.hasSame(data.when, 'day')) {
         setToday(true)
       }
     })

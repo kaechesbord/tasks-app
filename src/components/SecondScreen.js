@@ -1,11 +1,14 @@
 import React from 'react'
 import Footer from './Footer'
+import Filter from './Filter'
+import Header from './Header'
 
 const SecondScreen = () => {
   return (
     <div>
-      <p>This is second screen</p>
+      <Filter/>
       <Footer/>
+      <Header/>
     </div>
   )
 }
