@@ -43,13 +43,19 @@ export const mockDataTime = [
   }),
 ];
 
+export function calculateTimeDuration(startTime, endTime) {
+  const formattedStartTime = DateTime.fromMillis(startTime)
+  const formattedEndTime = DateTime.fromMillis(endTime)
+  const time = formattedEndTime - formattedStartTime;
+  return time/100;
+}
+console.log(calculateTimeDuration(1430, 1600))
 const Tab = ({ startTime, endTime, location, started }) => {
   const [isStarted, setStarted] = useState(false);
   const [today, setToday] = useState()
 
   const formattedStartTime = DateTime.fromMillis(startTime).toFormat('HH:mm');
   const formattedEndTime = DateTime.fromMillis(endTime).toFormat('HH:mm');
-
   useEffect(() => {
     const currentTime = DateTime.local().toMillis();
     const startTimestamp = startTime;
