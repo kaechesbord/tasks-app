@@ -6,8 +6,8 @@ const Filter = () => {
   return (
     <div className='contain'>
       <div className='places'>
-       {mockDataTime.map((data) => {
-        return <h1>{data.area}</h1>
+       {mockDataTime.map((data, id) => {
+        return <h1 key={id}>{`${data.area} (${mockDataTime.length})`}</h1>
        })}
       </div>
     </div>

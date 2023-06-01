@@ -7,36 +7,29 @@ import Footer from './components/Footer';
 import { mockDataTime } from './components/Tab';
 import { calculateTimeDuration } from './components/Tab';
 
-let startTime = 0;
-let endTime = 0;
-let time = 0;
-
-mockDataTime.map((item) => {
-  startTime = item.startTime;
-  endTime = item.endTime;
-  time = calculateTimeDuration(startTime, endTime);
-  return time;
-});
+const totalDuration = calculateTimeDuration();
 
 export const mockData = [
   {
     date: 'Today',
     when: DateTime.local().startOf('day').valueOf(),
-    time: time,
+    time: totalDuration,
   },
   {
     date: 'Tomorrow',
     when: DateTime.local().plus({ days: 1 }).startOf('day').valueOf(),
-    time: time,
+    time: totalDuration,
   },
   {
     date: 'September 22',
     when: DateTime.fromObject({ year: 2023, month: 9, day: 22 }).startOf('day').valueOf(),
-    time: time,
+    time: totalDuration,
   },
 ];
 
 
+
+const show = true
 const shifts = mockDataTime.length;
 const App = () => {
   return (
@@ -44,7 +37,7 @@ const App = () => {
       <div className="content-container">
         {mockData.map((data, index) => (
           <div key={index}>
-            <Header date={data.date} shifts={shifts} time={data.time} />
+            <Header date={data.date} shifts={shifts} time={data.time} showElement={show} />
             <Tab date={data.date} started={false} />
           </div>
         ))}
