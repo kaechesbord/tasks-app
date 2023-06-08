@@ -16,3 +16,15 @@
     padding: 0 10px;
     color: #004FB4;
   }
+  .activeLink,
+  .Link {
+    color: #004FB4;
+    text-decoration: none;
+    font-weight: 200;
+  }
+  
+  .inactive{
+    color: #CBD2E1;
+    text-decoration: none;
+    font-weight:200;
+  }

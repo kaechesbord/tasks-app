@@ -1,18 +1,19 @@
-import React from 'react'
-import Footer from './Footer'
-import Filter from './Filter'
-import Header from './Header'
-import { mockData } from '../App'
+import React from "react";
+import Footer from "./Footer";
+import Filter from "./Filter";
+import Header from "./Header";
+import { mockDataTime } from "./Tab";
+import Tab from "./Tab";
 
 const SecondScreen = () => {
-  const shouldShowElement = false;
   return (
     <div>
-      <Filter/>
-      <Footer/>
-      {mockData.map((data, index) => <Header key={index} date={data.date} showElement={shouldShowElement} />)}
+      <Filter locations={mockDataTime}/>
+      <Header />
+      <Tab />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default SecondScreen
+export default SecondScreen;

@@ -11,10 +11,11 @@
     border-top: 0.5px #CBD2E1 solid;
     justify-content: space-around;
     align-items: center;
+    text-decoration: none;
   }
   
   .activeLink,
-  .navLink {
+  .Link {
     color: #004FB4;
     text-decoration: none;
     font-weight: 200;

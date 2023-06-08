@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink} from 'react-router-dom'
-import './Footer.css'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 const Footer = () => {
-  const [activeLink, setActiveLink] = useState('');
+  const [activeLink, setActiveLink] = useState("");
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -11,15 +11,28 @@ const Footer = () => {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    setActiveLink(currentPath === '/' ? 'home' : 'about');
+    setActiveLink(currentPath === "/" ? "my" : "avlbl");
   }, []);
 
   return (
-    <div className='footer'>
-     <NavLink to={"/"} onClick={() => handleLinkClick('home')} className={activeLink === 'home' ? "activeLink" : "inactive"}> <h2 >My shifts</h2></NavLink>
-      <NavLink to={"/available-shifts"}  onClick={() => handleLinkClick('about')} className={activeLink === 'about' ? "activeLink" : "inactive"}><h2 >Available shifts</h2></NavLink>
+    <div className="footer">
+      <Link
+        to={"/"}
+        onClick={() => handleLinkClick("my")}
+        className={activeLink === "my" ? "activeLink" : "inactive"}
+      >
+        {" "}
+        <h2>My shifts</h2>
+      </Link>
+      <Link
+        to={"/available-shifts"}
+        onClick={() => handleLinkClick("avlbl")}
+        className={activeLink === "avlbl" ? "activeLink" : "inactive"}
+      >
+        <h2>Available shifts</h2>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

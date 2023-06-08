@@ -31,7 +31,6 @@ export const mockData = [
 const show = true
 const shifts = mockDataTime.length;
 const App = () => {
-  console.log(mockData)
   return (
     <div className="app-container">
       <div className="content-container">
