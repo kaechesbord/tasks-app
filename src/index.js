@@ -8,17 +8,27 @@ import {
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import SecondScreen from './components/SecondScreen';
+import { mockDataTime } from './components/Tab';
 
-const router = createBrowserRouter([
+const uniqueLocations = Array.from(new Set(mockDataTime.map((obj) => obj.area)));
+
+const routerConfig = uniqueLocations.map((location) => ({
+  path: `/available-shifts/${location}`,
+  element: <SecondScreen location = {location} />,
+}));
+
+routerConfig.push(
   {
-    path: "/available-shifts",
-    element: <SecondScreen />,
+  path: "/",
+  element: <App/>,
   },
   {
-    path: "/",
-    element:<App/>
+    path:'available-shifts',
+    element:<SecondScreen/>
   }
-]);
+);
+
+const router = createBrowserRouter(routerConfig);
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
