@@ -45,8 +45,8 @@ export const mockDataTime = [
     id: "43738cf0-791b-4765-b7a4-491fd49ccf36",
     booked: true,
     area: "Tampere",
-    startTime: 1686054052000,
-    endTime: 1686078752000
+    startTime:  1686239322000,
+    endTime:  1686253722000,
   },
   {
     id: "c9d791c0-2a1d-4f20-8e4b-4e5f56f7b0e0",
@@ -54,7 +54,7 @@ export const mockDataTime = [
     area: "Helsinki",
     startTime: 1523602800000,
     endTime: 1523610000000,
-  }
+  },
 ];
 export function calculateTimeDuration() {
   let totalDuration = 0;
@@ -63,39 +63,30 @@ export function calculateTimeDuration() {
     const duration = item.endTime - item.startTime;
     totalDuration += duration;
   });
+ 
   return Math.round((totalDuration / 3600000) * 10) / 10;
 }
 
-const Tab = ({ startTime, endTime, location }) => {
+export const Tab = ({ id, startTime, endTime, location, onTabCancel }) => {
   const [isStarted, setStarted] = useState(false);
 
+  const calculateDateMatching = (shiftStart, shiftEnd) => {
+    const myDate = new Date().getTime();
+    const currentlyInShift = myDate - shiftStart > 0 && myDate - shiftEnd < 0;
+    currentlyInShift ? setStarted(true) : setStarted(false);
+  };
   const formattedStartTime = DateTime.fromMillis(startTime).toFormat("HH:mm");
   const formattedEndTime = DateTime.fromMillis(endTime).toFormat("HH:mm");
-  let currentTime = Date.now()
+
+  const handleCancel = () => {
+    onTabCancel(id);
+  };
 
   useEffect(() => {
     const startTimestamp = startTime.valueOf();
     const endTimestamp = endTime.valueOf();
-    let foundToday = false;
-  
-    for (const data of mockData) {
-      if (currentDate.toMillis() === data.when.toMillis()) {
-        foundToday = true;
-        break; // Exit the current loop
-      }
-    }
-  
-    if (!foundToday) {
-      return; // Exit the useEffect hook if no match is found
-    }
-  
-    if (currentTime >= startTimestamp && currentTime <= endTimestamp) {
-      setStarted(true);
-    }
-  }, [startTime, endTime, currentTime, currentDate, mockData]);
-  
-  
-  
+    calculateDateMatching(startTimestamp, endTimestamp);
+  }, [startTime, endTime]);
 
   return (
     <div>
@@ -107,7 +98,10 @@ const Tab = ({ startTime, endTime, location }) => {
           <h4 className="location">{location}</h4>
         </div>
         <div className="btn">
-          <button className={isStarted ? "btn-started" : "btn-notStarted"}>
+          <button
+            className={isStarted ? "btn-started" : "btn-notStarted"}
+            onClick={!isStarted ? handleCancel : null}
+          >
             Cancel
           </button>
         </div>
@@ -117,19 +111,34 @@ const Tab = ({ startTime, endTime, location }) => {
 };
 
 const TabContainer = () => {
+  const [tabs, setTabs] = useState([]);
+
+  useEffect(() => {
+    const sortedTabs = mockDataTime.sort((a, b) => a.startTime - b.startTime);
+    setTabs(sortedTabs);
+  }, []);
+
+  const handleTabCancel = (id) => {
+    const updatedTabs = tabs.filter((tab) => tab.id !== id);
+    setTabs(updatedTabs);
+  };
+
   return (
     <div>
-      {mockDataTime.map((shift) => (
+      {tabs.map((shift) => (
         <Tab
           key={shift.id}
+          id={shift.id}
           startTime={shift.startTime}
           endTime={shift.endTime}
           location={shift.area}
           started={shift.booked}
+          onTabCancel={handleTabCancel}
         />
       ))}
     </div>
   );
 };
+
 
 export default TabContainer;

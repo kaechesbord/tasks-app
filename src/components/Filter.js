@@ -1,25 +1,26 @@
-import React, {  useState } from "react";
-import { Link } from "react-router-dom";
-import './Filter.css'
-import { mockDataTime } from "./Tab";
+import React, { useState } from "react";
+import "./Filter.css";
 
-const Filter = ({ locations }) => {
+const Filter = ({ locations, onSelectLocation }) => {
   const uniqueLocations = Array.from(new Set(locations.map((obj) => obj.area)));
   const [activeLink, setActiveLink] = useState(uniqueLocations[0]);
 
-  const checkLocation = (location) => {
+  const handleLinkClick = (location) => {
     setActiveLink(location);
-  }
+    onSelectLocation(location);
+  };
 
   return (
     <div className="contain">
       <div className="places">
         {uniqueLocations.map((location, index) => (
-          <Link to={location} key={index} style={{ textDecoration: 'none' }}>
-            <h1 className={activeLink === location ? "activeLink" : "inactive"} onClick={() => checkLocation(location)}>
-              {`${location} (${mockDataTime.length})`}
-            </h1>
-          </Link>
+          <h1
+            key={index}
+            className={activeLink === location ? "activeLink" : "inactive"}
+            onClick={() => handleLinkClick(location)}
+          >
+            {`${location} (${locations.filter((item) => item.area === location).length})`}
+          </h1>
         ))}
       </div>
     </div>

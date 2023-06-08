@@ -35,7 +35,6 @@ const App = () => {
     <div className="app-container">
       <div className="content-container">
         {mockData.map((data, index) => (
-
           <div key={index}>
             <Header date={data.date} shifts={shifts} time={data.time} showElement={show} />
             <Tab date={data.date} started={false} />

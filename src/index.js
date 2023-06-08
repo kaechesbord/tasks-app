@@ -1,37 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import SecondScreen from './components/SecondScreen';
-import { mockDataTime } from './components/Tab';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import SecondScreen from "./components/SecondScreen";
 
-const uniqueLocations = Array.from(new Set(mockDataTime.map((obj) => obj.area)));
-
-const routerConfig = uniqueLocations.map((location) => ({
-  path: `/available-shifts/${location}`,
-  element: <SecondScreen location = {location} />,
-}));
-
-routerConfig.push(
+const router = createBrowserRouter([
   {
-  path: "/",
-  element: <App/>,
+    path: "/",
+    element: <App />,
   },
   {
-    path:'available-shifts',
-    element:<SecondScreen/>
-  }
-);
+    path: "available-shifts",
+    element: <SecondScreen />,
+  },
+]);
 
-const router = createBrowserRouter(routerConfig);
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
