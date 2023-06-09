@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Tab from './components/Tab';
 import './App.css';
 import { DateTime } from 'luxon';
 import Footer from './components/Footer';
-import { mockDataTime } from './components/Tab';
+import TabContainer, { mockDataTime } from './components/Tab';
 import { calculateTimeDuration } from './components/Tab';
 
 const totalDuration = calculateTimeDuration();
@@ -27,17 +27,40 @@ export const mockData = [
   },
 ];
 
-
-const show = true
-const shifts = mockDataTime.length;
 const App = () => {
+  const [tabs, setTabs] = useState(mockDataTime);
+
+  const handleTabCancel = (id) => {
+    const updatedTabs = tabs.filter(tab => tab.id !== id);
+    setTabs(updatedTabs);
+  };
+
+  useEffect(() => {
+    const totalDuration = calculateTimeDuration(tabs);
+    const updatedMockData = mockData1.map((data) => ({
+      ...data,
+      time: totalDuration,
+    }));
+    setMockData1(updatedMockData);
+  }, [tabs]);
+
+  const [mockData1, setMockData1] = useState(mockData)
+
   return (
     <div className="app-container">
       <div className="content-container">
-        {mockData.map((data, index) => (
+        {mockData1.map((data, index) => (
           <div key={index}>
-            <Header date={data.date} shifts={shifts} time={data.time} showElement={show} />
-            <Tab date={data.date} started={false} />
+            <Header
+              date={data.date}
+              shifts={tabs.length}
+              time={data.time}
+              showElement={true}
+            />
+            <TabContainer
+              tabs={tabs}
+              onTabCancel={handleTabCancel}
+            />
           </div>
         ))}
       </div>

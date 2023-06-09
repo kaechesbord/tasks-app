@@ -110,22 +110,23 @@ export const Tab = ({ id, startTime, endTime, location, onTabCancel }) => {
   );
 };
 
-const TabContainer = () => {
-  const [tabs, setTabs] = useState([]);
-
-  useEffect(() => {
-    const sortedTabs = mockDataTime.sort((a, b) => a.startTime - b.startTime);
-    setTabs(sortedTabs);
-  }, []);
+const TabContainer = ({ tabs, onTabCancel }) => {
+  const [currentTabs, setCurrentTabs] = useState(tabs);
 
   const handleTabCancel = (id) => {
-    const updatedTabs = tabs.filter((tab) => tab.id !== id);
-    setTabs(updatedTabs);
+    const updatedTabs = currentTabs.filter(tab => tab.id !== id);
+    setCurrentTabs(updatedTabs);
+    onTabCancel(id);
   };
+
+  useEffect(() => {
+    const sortedTabs = currentTabs.sort((a, b) => a.startTime - b.startTime);
+    setCurrentTabs(sortedTabs);
+  }, [currentTabs]);
 
   return (
     <div>
-      {tabs.map((shift) => (
+      {currentTabs.map((shift) => (
         <Tab
           key={shift.id}
           id={shift.id}
@@ -139,6 +140,5 @@ const TabContainer = () => {
     </div>
   );
 };
-
 
 export default TabContainer;
