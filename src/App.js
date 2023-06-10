@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     const totalDuration = calculateTimeDuration(tabs);
-    const updatedMockData = mockData1.map((data) => ({
+    const updatedMockData = mockData.map((data) => ({
       ...data,
       time: totalDuration,
     }));
